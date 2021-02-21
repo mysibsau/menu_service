@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/menu', methods=['GET'])
 def get_menu():
     # wget запрос
-    file_name = './menu_files/menu_all.html'
+    file_name = './menu_files/menu_all_1.html'
     try:
         html_menu = open(file_name)
     except FileNotFoundError:
