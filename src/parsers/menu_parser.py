@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-from pprint import pprint
 
 
 def get_menu_quantities(soup):
@@ -73,7 +72,3 @@ def get_all_menu(html_file):
                     'room': get_name_room(soup, menu_num+1)
                 })
     return list_dishes
-
-
-if __name__ == '__main__':
-    pprint(list(get_all_menu('../menu_files/menu_all_1.html')))

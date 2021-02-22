@@ -6,7 +6,7 @@ from os import popen
 app = Flask(__name__)
 
 
-@app.route('/menu', methods=['GET'])
+@app.route('/menu/', methods=['GET'])
 def get_menu():
     menu = popen(
         'wget https://menu-droom.pallada.int.sibsau.ru/menu_all \
@@ -19,4 +19,4 @@ def get_menu():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
