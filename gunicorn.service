@@ -12,6 +12,7 @@ ExecStart=/home/ubuntu/.local/share/virtualenvs/menu_service-JS_6sGhZ/bin/gunico
           --workers 3 \
           --max-requests 100 \
           --bind unix:/run/gunicorn.sock \
+          --chdir /home/ubuntu/menu_service/src \
           app:app
 
 [Install]
