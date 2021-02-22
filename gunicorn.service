@@ -1,0 +1,18 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/menu_service
+ExecStart=/home/ubuntu/.local/share/virtualenvs/menu_service-JS_6sGhZ/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --max-requests 100 \
+          --bind unix:/run/gunicorn.sock \
+          app:app
+
+[Install]
+WantedBy=multi-user.target
