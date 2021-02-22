@@ -4,7 +4,6 @@ from os import popen
 
 
 app = Flask(__name__)
-MNEU_FILE_NAME = 'menu_files/menu_all_1.html'
 
 
 @app.route('/menu', methods=['GET'])
@@ -16,7 +15,7 @@ def get_menu():
             -qO-'
     ).read()
 
-    return jsonify(list(get_all_menu(menu))), 200
+    return jsonify(get_all_menu(menu)), 200
 
 
 if __name__ == '__main__':
