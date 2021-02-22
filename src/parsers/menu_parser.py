@@ -45,8 +45,16 @@ def get_type_name(tr):
     return tr.find('th').text.strip().capitalize()
 
 
+def menu_is_empty(soup):
+    return get_menu_quantities(soup) == 0
+
+
 def get_all_menu(html_file):
     soup = BeautifulSoup(html_file, 'html.parser')
+
+    if menu_is_empty(soup):
+        yield {'error': 'menu is empty'}
+
     for menu_num in range(get_menu_quantities(soup)):
         type_dish = None
         for tr in get_tr_in_table(get_sub_menu(soup, menu_num)):
