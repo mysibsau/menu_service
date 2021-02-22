@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from pprint import pprint
 
 
 def get_menu_quantities(soup):
@@ -23,7 +24,13 @@ def get_tr_in_table(sub_menu):
 
 
 def get_name_dish(tr):
-    return tr.find_all('td')[0].text
+    return tr.find_all('td')[0].text.split('(')[0].strip().capitalize()
+
+
+def included_dish(tr):
+    if '(' not in tr.find_all('td')[0].text:
+        return None
+    return tr.find_all('td')[0].text.split('(')[1][:-1].strip().lower()
 
 
 def get_weight(tr):
@@ -35,7 +42,7 @@ def get_price(tr):
 
 
 def get_type_name(tr):
-    return tr.find('th').text.strip()
+    return tr.find('th').text.strip().capitalize()
 
 
 def get_all_menu(html_file):
@@ -51,6 +58,7 @@ def get_all_menu(html_file):
                 yield {
                     'type': type_dish,
                     'name': get_name_dish(tr),
+                    'included': included_dish(tr),
                     'weight': get_weight(tr),
                     'price': get_price(tr),
                     'room': get_name_room(soup, menu_num+1)
@@ -58,8 +66,4 @@ def get_all_menu(html_file):
 
 
 if __name__ == '__main__':
-    for dish in get_all_menu('../menu_files/menu_all_1.html'):
-        for key, value in dish.items():
-            print(key, ":", value)
-        print()
-        print()
+    pprint(list(get_all_menu('../menu_files/menu_all_1.html')))
