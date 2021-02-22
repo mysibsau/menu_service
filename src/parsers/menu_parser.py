@@ -46,7 +46,7 @@ def get_type_name(tr):
 
 
 def get_all_menu(html_file):
-    soup = BeautifulSoup(open(html_file), 'html.parser')
+    soup = BeautifulSoup(html_file, 'html.parser')
     for menu_num in range(get_menu_quantities(soup)):
         type_dish = None
         for tr in get_tr_in_table(get_sub_menu(soup, menu_num)):
