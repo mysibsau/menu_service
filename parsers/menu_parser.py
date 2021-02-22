@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-import requests
 
 
 def get_menu_quantities(soup):
@@ -8,12 +7,14 @@ def get_menu_quantities(soup):
 
 
 def get_name_room(soup, menu_num):
-    return soup.select(f'#wrapwrap>main>div:nth-child(2)>div>ul>li:nth-child({menu_num+1})>a')[0].text
+    return soup.select(
+        f'#wrapwrap>main>div:nth-child(2)>div>ul>li:nth-child({menu_num})>a'
+    )[0].text
 
 
 def get_sub_menu(soup, menu_num):
     '''Получение меню конкретной столовой'''
-    return soup.find_all('div', {'class':'tab-pane'})[menu_num]
+    return soup.find_all('div', {'class': 'tab-pane'})[menu_num]
 
 
 def get_tr_in_table(sub_menu):
@@ -52,12 +53,12 @@ def get_all_menu(html_file):
                     'name': get_name_dish(tr),
                     'weight': get_weight(tr),
                     'price': get_price(tr),
-                    'room': get_name_room(soup, menu_num)
+                    'room': get_name_room(soup, menu_num+1)
                 }
 
 
 if __name__ == '__main__':
-    for dish in get_all_menu('menu_all.html'):
+    for dish in get_all_menu('../menu_files/menu_all_1.html'):
         for key, value in dish.items():
             print(key, ":", value)
         print()
