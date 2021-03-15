@@ -63,12 +63,15 @@ def get_all_menu(html_file):
                 type_dish = get_type_name(tr)
 
             else:
-                list_dishes.append({
+                tmp = {
                     'type': type_dish,
                     'name': get_name_dish(tr),
                     'included': included_dish(tr),
                     'weight': get_weight(tr),
                     'price': get_price(tr),
                     'room': get_name_room(soup, menu_num+1)
-                })
+                }
+                if tmp not in list_dishes:
+                    list_dishes.append(tmp)
+
     return list_dishes
