@@ -48,14 +48,26 @@ def menu_is_empty(soup):
     return get_menu_quantities(soup) == 0
 
 
+def room_is_exist(soup, num, rooms):
+    room = get_name_room(soup, num+1)
+    if room in rooms:
+        return True
+    rooms.append(room)
+    return False
+
+
 def get_all_menu(html_file):
     soup = BeautifulSoup(html_file, 'html.parser')
     list_dishes = []
+    rooms = []
 
     if menu_is_empty(soup):
         return {'error': 'menu is empty'}
 
     for menu_num in range(get_menu_quantities(soup)):
+        if room_is_exist(soup, num, rooms):
+            continue
+            
         type_dish = None
         for tr in get_tr_in_table(get_sub_menu(soup, menu_num)):
 
@@ -69,6 +81,7 @@ def get_all_menu(html_file):
                     'included': included_dish(tr),
                     'weight': get_weight(tr),
                     'price': get_price(tr),
-                    'room': get_name_room(soup, menu_num+1)
+                    'room': get_name_room(soup, num+1)
                 })
+
     return list_dishes
